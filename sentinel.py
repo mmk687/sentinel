@@ -23,14 +23,13 @@ if __name__ == "__main__":
 	try:
 		shod = shodapi.Shodapi()	
 	except:
-		log.error('nop')
+		log.error('Error: check your key, or internet connection')
 	if args.netcams:
 		shod.netcams()
 	elif args.search:
-		p = log.progress("Looking for '"+args.search+"' into the deep IoT kingdom")
-		p.status("Digging...")
-		result = shod.search(args.search)
-		p.success("Got them all !")
-		log.info("Found "+str(result['total'])+" "+args.search+" things !")
-		for thing in result['matches']:
-			log.info(thing['ip_str']+" located in "+unicode(thing['location']['country_name']))
+		shod.customSearch(args.search)
+
+	if args.file:
+		shod.writeToFile(args.file)
+	
+	log.warning("Please secure your IoT devices ...")
